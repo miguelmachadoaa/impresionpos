@@ -1,0 +1,35 @@
+<?php
+
+include('vendor/autoload.php');
+
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
+use Mike42\Escpos\Printer;
+
+
+ $data = json_decode(file_get_contents('php://input'), true);
+
+ #var_dump($data['id']);
+
+
+ echo "Titiwow\n";
+ echo "Direccion\n";
+ echo "factura : ". $data['id']."\n";
+ echo "fecha : ". $data['created_at']."\n";
+ echo "fecha : ". $data['created_at']."\n";
+
+ die();
+
+$nombreImpresora = "Microsoft Print to PDF";
+$connector = new WindowsPrintConnector($nombreImpresora);
+$impresora = new Printer($connector);
+$impresora->setJustification(Printer::JUSTIFY_CENTER);
+$impresora->setTextSize(1, 1);
+$impresora->text("Imprimiendo\n");
+$impresora->text("ticket\n");
+$impresora->text("desde\n");
+$impresora->text("Laravel\n");
+$impresora->setTextSize(1, 1);
+$impresora->text("https://parzibyte.me");
+$impresora->feed(5);
+$impresora->close();
+
