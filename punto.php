@@ -17,13 +17,13 @@ include('funciones.php');
 
  #die();
 
-/*$nombreImpresora = "POS-58";
+$nombreImpresora = "POS-58";
 $connector = new WindowsPrintConnector($nombreImpresora);
 $impresora = new Printer($connector);
 $impresora->setJustification(Printer::JUSTIFY_CENTER);
-$impresora->setTextSize(1, 1);*/
+$impresora->setTextSize(1, 1);
 
- echo( $data['ticket']);
+ $impresora->text( $data['ticket']);
 
 #$impresora->text("Imprimiendo\n");
 #$impresora->text("ticket\n");

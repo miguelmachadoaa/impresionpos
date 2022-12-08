@@ -18,58 +18,58 @@ include('funciones.php');
 
  #die();
 
-/*$nombreImpresora = "POS-58";
+$nombreImpresora = "POS-58";
 $connector = new WindowsPrintConnector($nombreImpresora);
 $impresora = new Printer($connector);
 $impresora->setJustification(Printer::JUSTIFY_CENTER);
-$impresora->setTextSize(1, 1);*/
+$impresora->setTextSize(1, 1);
 
 
 $espacio = calcularEspacios("", '', $len,'*');
 
-echo( $espacio."\n");
+$impresora->text( $espacio."\n");
 
- echo( "SENIAT\n");
-  echo( "Rif J-0000000-000\n");
- echo( "Titiwow\n");
- echo( "Direccion\n");
- echo( "Rif J-0000000-000\n");
- echo( "Caja ".$data['id']."\n");
+ $impresora->text( "SENIAT\n");
+  $impresora->text( "Rif J-0000000-000\n");
+ $impresora->text( "Titiwow\n");
+ $impresora->text( "Direccion\n");
+ $impresora->text( "Rif J-0000000-000\n");
+ $impresora->text( "Caja ".$data['id']."\n");
 
-
- 
 
  
-echo(calcularEspacios('Cajero: ', $data['cajero']['full_name'], $len,' '));
-echo(calcularEspacios('Fecha Inicio: ', $data['fecha_inicio'], $len,' '));
-echo(calcularEspacios('Fecha Cierre: ', $data['fecha_cierre'], $len,' '));
-echo(calcularEspacios('Monto Inicial: ', $data['monto_inicial'], $len,' '));
-echo(calcularEspacios('Monto Cierre: ', $data['monto_final'], $len,' '));
-
-echo(calcularEspacios('', '', $len,'-'));
-
- echo( "Formas de pago"."\n");
 
  
-echo(calcularEspacios('', '', $len,'-'));
+$impresora->text(calcularEspacios('Cajero: ', $data['cajero']['full_name'], $len,' '));
+$impresora->text(calcularEspacios('Fecha Inicio: ', $data['fecha_inicio'], $len,' '));
+$impresora->text(calcularEspacios('Fecha Cierre: ', $data['fecha_cierre'], $len,' '));
+$impresora->text(calcularEspacios('Monto Inicial: ', $data['monto_inicial'], $len,' '));
+$impresora->text(calcularEspacios('Monto Cierre: ', $data['monto_final'], $len,' '));
+
+$impresora->text(calcularEspacios('', '', $len,'-'));
+
+ $impresora->text( "Formas de pago"."\n");
+
+ 
+$impresora->text(calcularEspacios('', '', $len,'-'));
 
 
 foreach ($data['pagos'] as $d) {
 
     if (isset($d['formapago']['nombre_forma_pago'])) {
-        echo(calcularEspacios($d['formapago']['nombre_forma_pago'], number_format($d['total_pagos'],2,',','.'), $len,' '));
+        $impresora->text(calcularEspacios($d['formapago']['nombre_forma_pago'], number_format($d['total_pagos'],2,',','.'), $len,' '));
     }else{
-        echo(calcularEspacios('', number_format($d['total_pagos'],2,',','.'), $len,' '));
+        $impresora->text(calcularEspacios('', number_format($d['total_pagos'],2,',','.'), $len,' '));
     }
     
     
 }
 
-echo(calcularEspacios('', '', $len,'-'));
+$impresora->text(calcularEspacios('', '', $len,'-'));
 
 
-echo('');
-echo('Gracias por su Compra');
+$impresora->text('');
+$impresora->text('Gracias por su Compra');
 
  
 

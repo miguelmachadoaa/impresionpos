@@ -18,61 +18,61 @@ include('funciones.php');
 
  #die();
 
-/*$nombreImpresora = "POS-58";
+$nombreImpresora = "POS-58";
 $connector = new WindowsPrintConnector($nombreImpresora);
 $impresora = new Printer($connector);
 $impresora->setJustification(Printer::JUSTIFY_CENTER);
-$impresora->setTextSize(1, 1);*/
+$impresora->setTextSize(1, 1);
 
 
 $espacio = calcularEspacios("", '', $len,'*');
 
-echo( $espacio."\n");
+$impresora->text( $espacio."\n");
 
- echo( "SENIAT\n");
-  echo( "Rif J-0000000-000\n");
- echo( "Titiwow\n");
- echo( "Direccion\n");
- echo( "Rif J-0000000-000\n");
- echo( "Caja 01\n");
+ $impresora->text( "SENIAT\n");
+  $impresora->text( "Rif J-0000000-000\n");
+ $impresora->text( "Titiwow\n");
+ $impresora->text( "Direccion\n");
+ $impresora->text( "Rif J-0000000-000\n");
+ $impresora->text( "Caja 01\n");
 
- echo( "Informacion del Cliente"."\n");
+ $impresora->text( "Informacion del Cliente"."\n");
 
  $espacio = calcularEspacios("Cliente: ", $data['cliente']['full_name'], $len,' ');
 
- echo(calcularEspacios("Cliente: ", $data['cliente']['full_name'], $len,' '));
- echo(calcularEspacios("RIF / CI: ", $data['cliente']['id'], $len,' '));
- echo( "Factura "."\n");
+ $impresora->text(calcularEspacios("Cliente: ", $data['cliente']['full_name'], $len,' '));
+ $impresora->text(calcularEspacios("RIF / CI: ", $data['cliente']['id'], $len,' '));
+ $impresora->text( "Factura "."\n");
 
- echo(calcularEspacios("Factura: ", $data['id'], $len,' '));
- echo(calcularEspacios("Fecha: ", substr($data['created_at'], 8,2).'/'.substr($data['created_at'], 5,2).'/'.substr($data['created_at'], 0,4), $len,' '));
- echo(calcularEspacios('', '', $len,'-'));
+ $impresora->text(calcularEspacios("Factura: ", $data['id'], $len,' '));
+ $impresora->text(calcularEspacios("Fecha: ", substr($data['created_at'], 8,2).'/'.substr($data['created_at'], 5,2).'/'.substr($data['created_at'], 0,4), $len,' '));
+ $impresora->text(calcularEspacios('', '', $len,'-'));
 
 
 
  
 
 foreach ($data['detalles'] as $d) {
-    echo( "".$d['cantidad']." X ".number_format($d['precio_unitario'],2,',','.')."\n");
+    $impresora->text( "".$d['cantidad']." X ".number_format($d['precio_unitario'],2,',','.')."\n");
 
-    echo(calcularEspacios($d['producto']['nombre_producto'], number_format($d['precio_total'],2,',','.'), $len,' '));
+    $impresora->text(calcularEspacios($d['producto']['nombre_producto'], number_format($d['precio_total'],2,',','.'), $len,' '));
     
 }
 
-echo(calcularEspacios('', '', $len,'-'));
+$impresora->text(calcularEspacios('', '', $len,'-'));
 
-echo(calcularEspacios('Excento ', number_format(($data['base_impuesto']+$data['monto_impuesto']-$data['monto_total']),2,',','.'), $len,' '));
+$impresora->text(calcularEspacios('Excento ', number_format(($data['base_impuesto']+$data['monto_impuesto']-$data['monto_total']),2,',','.'), $len,' '));
 
-echo(calcularEspacios('Base Imponible ', number_format($data['base_impuesto'],2,',','.'), $len,' '));
+$impresora->text(calcularEspacios('Base Imponible ', number_format($data['base_impuesto'],2,',','.'), $len,' '));
 
-echo(calcularEspacios('Monto IVA ', number_format($data['monto_impuesto'],2,',','.'), $len,' '));
+$impresora->text(calcularEspacios('Monto IVA ', number_format($data['monto_impuesto'],2,',','.'), $len,' '));
 
-echo(calcularEspacios('', '', $len,'-'));
+$impresora->text(calcularEspacios('', '', $len,'-'));
 
-echo(calcularEspacios('Total ', number_format($data['monto_total'],2,',','.'), $len,' '));
+$impresora->text(calcularEspacios('Total ', number_format($data['monto_total'],2,',','.'), $len,' '));
 
-echo('');
-echo('Gracias por su Compra');
+$impresora->text('');
+$impresora->text('Gracias por su Compra');
 
  
 
